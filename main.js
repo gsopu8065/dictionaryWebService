@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.listen(9050, function () {
+app.listen(process.env.PORT || 5000, function () {
     console.log("Example app listening at http://localhost:%s", 9050)
 });
 
