@@ -1,0 +1,11 @@
+{
+  "name": "dictionaryWebService",
+  "version": "0.0.1",
+  "dependencies": {
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "mongodb": "2.1.16",
+    "body-parser": "1.15.0",
+    "urban": "0.3.1"
+  }
+}
