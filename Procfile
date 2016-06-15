@@ -1,1 +1,1 @@
-web: node app/dictionaryServices.js
+web: node dictionaryServices.js
