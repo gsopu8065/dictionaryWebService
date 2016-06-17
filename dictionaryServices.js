@@ -7,10 +7,13 @@ var urban = require('urban');
 app.get('/randomWords', function (req, res) {
     var list =[]
     urban.random().first(function(json){
+        json.source = "Urban Dictionary"
         list.push(json)
         urban.random().first(function(json){
+            json.source = "Urban Dictionary"
             list.push(json)
             urban.random().first(function(json){
+                json.source = "Urban Dictionary"
                 list.push(json)
                 res.send(list)
             })
@@ -20,6 +23,7 @@ app.get('/randomWords', function (req, res) {
 
 app.get('/random', function (req, res) {
     urban.random().first(function(json) {
+        json.source = "Urban Dictionary"
         res.send(json)
     });
 });
