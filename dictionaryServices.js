@@ -12,6 +12,28 @@ app.get('/random', function (req, res) {
     });
 });
 
+app.get('/randomWords', function (req, res) {
+
+    var result = []
+    urban.random().first(function (json) {
+        json.source = "Urban Dictionary"
+        result.push(json)
+        urban.random().first(function (json) {
+            json.source = "Urban Dictionary"
+            result.push(json)
+            urban.random().first(function (json) {
+                json.source = "Urban Dictionary"
+                result.push(json)
+                urban.random().first(function (json) {
+                    json.source = "Urban Dictionary"
+                    result.push(json)
+                    res.send(result)
+                });
+            });
+        });
+    });
+});
+
 app.post('/signup', function (req, res) {
     dbServices.signup(req.body, res)
 });
