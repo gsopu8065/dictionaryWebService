@@ -32,7 +32,7 @@ var dbservice = {
     saveWord: function(body, res){
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
-                collection.update({email: body.email}, {$push: {words: {$each: body}}}, function (err, records) {
+                collection.update({email: body.email}, {$push: {words: {$each: body.word}}}, function (err, records) {
                     res.send(records)
                 })
             });
