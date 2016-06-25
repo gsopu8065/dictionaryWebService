@@ -6,10 +6,16 @@ var urban = require('urban');
 var dbServices = require('./mongodb/dbServices.js')
 
 app.get('/random', function (req, res) {
-    urban.random().first(function (json) {
-        json.source = "Urban Dictionary"
-        res.send(json)
-    });
+
+    if (req.query.id == 13) {
+        urban.random().first(function (json) {
+            json.source = "Urban Dictionary"
+            res.send(json)
+        });
+    }
+    else {
+        dbServices.randomWord(req.query.id, res)
+    }
 });
 
 app.get('/randomWords', function (req, res) {
@@ -45,6 +51,10 @@ app.get('/getEmail', function (req, res) {
 
 app.post('/saveWord', function (req, res) {
     dbServices.saveWord(req.body, res)
+});
+
+app.post('/removeWord', function (req, res) {
+    dbServices.removeWord(req.body, res)
 });
 
 app.get('/getSavedWords', function (req, res) {

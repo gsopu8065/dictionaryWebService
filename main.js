@@ -3,6 +3,8 @@
  */
 var express = require('express');
 var bodyParser = require('body-parser')
+var mongodb = require('mongodb');
+var mongoDbConnection = require('./mongodb/connection.js');
 
 var app = express();
 
@@ -44,6 +46,10 @@ app.all('*', function(req, res,next) {
 
 
 app.listen(process.env.PORT || 5000, function () {
+    mongoDbConnection(function (databaseConnection) {
+      console.log("DB connection created")
+    })
+
     console.log("Example app listening at http://localhost:%s", 9050)
 });
 

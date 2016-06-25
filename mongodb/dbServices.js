@@ -4,7 +4,28 @@
 var mongodb = require('mongodb');
 var mongoDbConnection = require('./connection.js');
 
+var files = ["verbs", "emotions", "peopleadj", "apperanceadj", "conditionadj",
+    "feelingsadj", "shapeadj", "sizeadj", "soundadj", "timeadj",
+    "tasteadj", "quantityadj", "descriptivewords"
+]
+
 var dbservice = {
+
+    randomWord: function(dbNumber, res){
+
+        mongoDbConnection(function (databaseConnection) {
+            databaseConnection.collection(files[dbNumber], function (error, collection) {
+                collection.find().count(function(error, numOfDocs) {
+                    var n = numOfDocs;
+                    var r = Math.random() * (n - 0) + 0;
+                    collection.find({}).skip(r).next(function (err, doc) {
+                        doc.source = "Words Swipe"
+                        res.send(doc)
+                    })
+                });
+            });
+        });
+    },
 
     signup: function(body, res){
 
@@ -32,7 +53,18 @@ var dbservice = {
     saveWord: function(body, res){
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
-                collection.update({email: body.email}, {$push: {words: {$each: body.word}}}, function (err, records) {
+                collection.update({email: body.email}, {$addToSet: {words: {$each: body.word}}}, function (err, records) {
+                    res.send(records)
+                })
+            });
+        });
+    },
+
+    removeWord: function(body, res){
+        mongoDbConnection(function (databaseConnection) {
+            databaseConnection.collection('dictionary', function (error, collection) {
+                console.log("srujan")
+                collection.findOneAndUpdate({email: body.email}, {$pull: {words:  body.word}}, function (err, records) {
                     res.send(records)
                 })
             });
