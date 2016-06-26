@@ -7,7 +7,7 @@ var dbServices = require('./mongodb/dbServices.js')
 
 app.get('/random', function (req, res) {
 
-    if (req.query.id == 13) {
+    if (req.query.id == 1) {
         urban.random().first(function (json) {
             json.source = "Urban Dictionary"
             res.send(json)

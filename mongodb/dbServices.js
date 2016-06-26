@@ -4,17 +4,14 @@
 var mongodb = require('mongodb');
 var mongoDbConnection = require('./connection.js');
 
-var files = ["verbs", "emotions", "peopleadj", "apperanceadj", "conditionadj",
-    "feelingsadj", "shapeadj", "sizeadj", "soundadj", "timeadj",
-    "tasteadj", "quantityadj", "descriptivewords"
-]
+var files = ["verbs", "emotions", "adjectives", "descriptivewords"]
 
 var dbservice = {
 
     randomWord: function(dbNumber, res){
 
         mongoDbConnection(function (databaseConnection) {
-            databaseConnection.collection(files[dbNumber], function (error, collection) {
+            databaseConnection.collection(files[dbNumber-2], function (error, collection) {
                 collection.find().count(function(error, numOfDocs) {
                     var n = numOfDocs;
                     var r = Math.random() * (n - 0) + 0;
