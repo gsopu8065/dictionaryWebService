@@ -50,7 +50,7 @@ var dbservice = {
     saveWord: function(body, res){
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
-                collection.update({email: body.email}, {$addToSet: {words: {$each: body.word}}}, function (err, records) {
+                collection.update({_id: body._id}, {$addToSet: {words: {$each: body.word}}}, function (err, records) {
                     res.send(records)
                 })
             });
@@ -61,17 +61,17 @@ var dbservice = {
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
                 console.log("srujan")
-                collection.findOneAndUpdate({email: body.email}, {$pull: {words:  body.word}}, function (err, records) {
+                collection.findOneAndUpdate({_id: body._id}, {$pull: {words:  body.word}}, function (err, records) {
                     res.send(records)
                 })
             });
         });
     },
 
-    getSavedWords : function(email, res){
+    getSavedWords : function(deviceId, res){
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
-                collection.find({email: email}).next(function (err, doc) {
+                collection.find({_id: deviceId}).next(function (err, doc) {
                     res.send(doc)
                 })
             });

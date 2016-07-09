@@ -58,5 +58,5 @@ app.post('/removeWord', function (req, res) {
 });
 
 app.get('/getSavedWords', function (req, res) {
-    dbServices.getSavedWords(req.query.email, res)
+    dbServices.getSavedWords(req.query.deviceId, res)
 });
