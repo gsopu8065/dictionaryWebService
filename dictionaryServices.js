@@ -3,7 +3,9 @@
  */
 var app = require('./main.js');
 var urban = require('urban');
-var dbServices = require('./mongodb/dbServices.js')
+var dbServices = require('./mongodb/dbServices.js');
+var timexe = require('timexe');
+var request = require('request');
 
 app.get('/random', function (req, res) {
 
@@ -63,4 +65,12 @@ app.post('/removeWord', function (req, res) {
 
 app.get('/getSavedWords', function (req, res) {
     dbServices.getSavedWords(req.query.deviceId, res)
+});
+
+timexe("* * * * /1", function () {
+    console.log(new Date() + "hello wolrd")
+    request('https://dictionaryapp.herokuapp.com', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+        }
+    })
 });
