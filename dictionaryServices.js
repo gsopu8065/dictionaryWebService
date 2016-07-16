@@ -44,6 +44,10 @@ app.post('/signup', function (req, res) {
     dbServices.signup(req.body, res)
 });
 
+app.get('/checkDeviceId', function (req, res) {
+    dbServices.checkDeviceId(req.query.deviceId, res)
+});
+
 app.get('/getEmail', function (req, res) {
     dbServices.getEmail(req.query.deviceId, res)
     //res.send("hello world")

@@ -47,6 +47,18 @@ var dbservice = {
 
     },
 
+    checkDeviceId: function(deviceId, res){
+
+        mongoDbConnection(function (databaseConnection) {
+            databaseConnection.collection('dictionary', function (error, collection) {
+                collection.find({_id: deviceId}).toArray(function(err, dbres) {
+                    res.jsonp(dbres);
+                });
+            });
+        });
+
+    },
+
     saveWord: function(body, res){
         mongoDbConnection(function (databaseConnection) {
             databaseConnection.collection('dictionary', function (error, collection) {
